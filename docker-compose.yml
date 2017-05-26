@@ -1,0 +1,13 @@
+dbservertestdb:
+  image: mysql:latest
+  environment:
+    MYSQL_DATABASE: dbservertest
+    MYSQL_USER: dbstest
+    MYSQL_PASSWORD: dbstest
+    MYSQL_ROOT_PASSWORD: root
+dbservertestapp:
+  build: .
+  links:
+    - dbservertestdb:db
+  ports:
+    - 8080:8080

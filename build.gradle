@@ -1,0 +1,42 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+    }
+}
+
+plugins {
+    id "org.flywaydb.flyway" version "4.2.0"
+}
+
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+jar {
+    baseName = 'brunovargasdbserver'
+    manifest {
+        attributes 'Implementation-Title': 'Teste DB Server Bruno Vargas',
+        	'Main-Class': 'io.brunovargas.dbserver.Application'
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+   compile("org.springframework.boot:spring-boot-starter-web")
+   compile("org.springframework.boot:spring-boot-starter-data-jpa")
+   compile("org.flywaydb:flyway-core")
+   compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
+   testCompile("junit:junit")
+}
